@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c : ${emails}">
+        <td th:text="${c.id}">...</td>
+        <td th:text="${c.email}">...</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
