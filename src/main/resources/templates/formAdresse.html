@@ -1,0 +1,31 @@
+<html>
+<body>
+<form action="#" th:action="@{/formAdresse}" th:object="${AdresseForm}" method="post">
+    <table>
+        <tr>
+            <td>Ville:</td>
+            <td><input type="text" th:field="*{ville}" /></td>
+            <td th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}">Erreur sur le ville</td>
+        </tr>
+        <tr>
+            <td>Code Postal:</td>
+            <td><input type="text" th:field="*{codePostal}" /></td>
+            <td th:if="${#fields.hasErrors('codePostal')}" th:errors="*{codePostal}">Erreur sur le code postal</td>
+        </tr>
+        <tr>
+            <td>Numero rue:</td>
+            <td><input type="text" th:field="*{numeroRue}" /></td>
+            <td th:if="${#fields.hasErrors('numeroRue')}" th:errors="*{numeroRue}">Erreur sur le numéro de rue</td>
+        </tr>
+        <tr>
+            <td>Libelle Voirie:</td>
+            <td><input type="text" th:field="*{libelleVoirie}" /></td>
+            <td th:if="${#fields.hasErrors('libelleVoirie')}" th:errors="*{libelleVoirie}">Erreur sur le libelle de voirie</td>
+        </tr>
+        <tr>
+            <td><button type="submit">Submit</button></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

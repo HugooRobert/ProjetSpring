@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <script type='text/javascript'>
+        function ajouterAdresse(){
+            window.location.replace("../formAdresse");
+        }
+    </script>
 </head>
 <body>
 
@@ -26,6 +29,11 @@
     </tr>
     </tbody>
 </table>
+<a th:onclick="'javascript:ajouterAdresse();'">
+    <button type="button">
+        Ajouter une adresse
+    </button>
+</a>
 
 
 </body>

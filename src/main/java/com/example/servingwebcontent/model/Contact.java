@@ -1,13 +1,19 @@
 package com.example.servingwebcontent.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
+@Transactional
+@XmlRootElement(name="contact")
 public class Contact implements Serializable {
 
     @Id
@@ -30,14 +36,17 @@ public class Contact implements Serializable {
                 id, firstName, lastName);
     }
 
+    @XmlElement
     public Long getId() {
         return id;
     }
 
+    @XmlElement
     public String getFirstName() {
         return firstName;
     }
 
+    @XmlElement
     public String getLastName() {
         return lastName;
     }
@@ -54,8 +63,10 @@ public class Contact implements Serializable {
         this.lastName = lastName;
     }
 
+
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name="JOINTURE_ADRESSES")
+    @JsonIgnoreProperties("contacts")
     private Collection<Adresse> adresses;
 
     @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
