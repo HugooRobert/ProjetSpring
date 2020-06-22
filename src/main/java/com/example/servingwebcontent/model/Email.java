@@ -3,6 +3,7 @@ package com.example.servingwebcontent.model;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -47,6 +48,7 @@ public class Email implements Serializable {
         this.id = id;
     }
 
+    @XmlTransient
     public Contact getContact() {
         return contact;
     }

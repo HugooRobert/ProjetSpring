@@ -61,6 +61,10 @@ public class ServingWebContentApplication implements CommandLineRunner {
         test.getAdresses().add(arr.findById(7L));
         crr.save(test);
 
+        Contact test1 = crr.findById(2);
+        test1.getAdresses().add(arr.findById(6L));
+        crr.save(test1);
+
 
         Email e = err.findById(10L);
         e.setContact(crr.findById(1L));

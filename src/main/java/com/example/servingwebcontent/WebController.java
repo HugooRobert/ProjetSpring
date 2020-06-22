@@ -320,6 +320,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Controller
 public class WebController implements WebMvcConfigurer {
 
+    @Autowired ContactRepository cr;
+    @Autowired AdresseRepository adresseRepository;
+    @Autowired EmailRepository emailRepository;
+
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         // registry.addViewController("/").setViewName("index");
@@ -332,8 +337,6 @@ public class WebController implements WebMvcConfigurer {
         return "form";
     }
 
-    @Autowired ContactRepository cr;
-
     @PostMapping("/form")
     public String checkPersonInfo(@Valid ContactForm contactForm, BindingResult bindingResult) {
 
@@ -343,6 +346,32 @@ public class WebController implements WebMvcConfigurer {
 
         cr.save(new Contact(contactForm.getFirstName(), contactForm.getLastName()));
 
+        return "redirect:/listContacts";
+    }
+
+    String temmmp;
+    @GetMapping("/formAdresse")
+    public String showFormAdresse(AdresseForm adresseForm, @RequestParam(value="id", required = false, defaultValue = "-1") String x) {
+        temmmp = x;
+        return "formAdresse";
+    }
+
+    @PostMapping("/formAdresse")
+    public String checkAdresseInfo(@Valid AdresseForm adresseForm, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "formAdresse";
+        }
+        try {
+            Adresse a = new Adresse(adresseForm.getVille(), adresseForm.getCodePostal(), adresseForm.getNumeroRue(), adresseForm.getLibelleVoirie());
+            adresseRepository.save(a);
+
+            Contact c = cr.findById(Long.parseLong(temmmp));
+            c.getAdresses().add(a);
+            cr.save(c);
+
+        } catch(Exception e){
+        }
         return "redirect:/listContacts";
     }
 
@@ -383,19 +412,17 @@ public class WebController implements WebMvcConfigurer {
         return "redirect:/listContacts";
     }
 
-    @Autowired
-    private AdresseRepository adresseRepository;
+
 
 
     @GetMapping("/adresses")
     public String showContact(@RequestParam(value="id", required = false, defaultValue = "-1") String x, Model model){
-        Iterable<Adresse> ad = cr.findById(Long.parseLong(x)).getAdresses();
-        model.addAttribute("adresses", ad);
+        Contact c = cr.findById(Long.parseLong(x));
+        model.addAttribute("contact", c);
         return "adresses";
     }
 
-    @Autowired
-    private EmailRepository emailRepository;
+
 
     @GetMapping("/emails")
     public String showEmail(@RequestParam(value="id", required = false, defaultValue = "-1") String x, Model model){

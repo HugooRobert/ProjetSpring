@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <script type='text/javascript'>
-        function ajouterAdresse(){
-            window.location.replace("../formAdresse");
+        function ajouterAdresse(e){
+            window.location.replace("../formAdresse?id=" + e);
         }
     </script>
 </head>
@@ -20,7 +20,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="c : ${adresses}">
+    <tr th:each="c : ${contact.adresses}">
         <td th:text="${c.id}">...</td>
         <td th:text="${c.numeroRue}">...</td>
         <td th:text="${c.libelleVoirie}">...</td>
@@ -29,7 +29,7 @@
     </tr>
     </tbody>
 </table>
-<a th:onclick="'javascript:ajouterAdresse();'">
+<a th:onclick="'javascript:ajouterAdresse(\''+ ${contact.id} + '\');'">
     <button type="button">
         Ajouter une adresse
     </button>
