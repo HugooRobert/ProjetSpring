@@ -8,5 +8,5 @@ Il faut donc :
           
           
 Les identifiants de connexions sont les suivants :
-  user : user
-  mdp : secret123
+  - user :   user
+  - mdp  :   secret123
